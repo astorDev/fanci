@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
-
 class FanciPlaygroundApp extends StatelessWidget {
+  final ThemeModeController themeModeController = ThemeModeController(ThemeMode.light);
   final String appName;
   final List<FanciPlaygroundTab> tabs;
 
-  const FanciPlaygroundApp({
+  FanciPlaygroundApp({
     required this.appName,
     required this.tabs,
     super.key
@@ -14,9 +13,8 @@ class FanciPlaygroundApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: themeMode,
-      builder: (context, themeMode, _) => MaterialApp(
+    return ThemedBuilder(
+      builder: (themeController) => MaterialApp(
         title: '$appName Playground',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
@@ -24,23 +22,40 @@ class FanciPlaygroundApp extends StatelessWidget {
           useMaterial3: true,
         ),
         darkTheme: ThemeData.dark(),
-        themeMode: themeMode,
-        home: FancyPlaygroundPage(
+        themeMode: themeController.value,
+        home: FanciPlaygroundPage(
           appName: appName,
-          tabs: tabs
+          tabs: tabs,
+          themeModeController: themeController,
         ),
       ),
     );
   }
 }
 
-class FancyPlaygroundPage extends StatelessWidget {
+class ThemedBuilder extends StatelessWidget {
+  final ThemeModeController themeModeController = ThemeModeController(ThemeMode.light);
+  final Widget Function(ThemeModeController) builder;
+
+  ThemedBuilder({
+    required this.builder,
+    super.key
+  });
+  
+  @override
+  Widget build(BuildContext context) => ValueListenableBuilder(
+    valueListenable: themeModeController, 
+    builder: (context, _, __) => builder(themeModeController)
+  );
+}
+
+class FanciPlaygroundPage extends StatelessWidget {
   final String appName;
   final ValueNotifier navigationBarIndex = ValueNotifier(0);
   final List<FanciPlaygroundTab> tabs;
-  final ValueNotifier<ThemeMode>? themeModeController;
+  final ThemeModeController? themeModeController;
 
-  FancyPlaygroundPage({
+  FanciPlaygroundPage({
     super.key,
     required this.appName,
     required this.tabs,
@@ -55,9 +70,7 @@ class FancyPlaygroundPage extends StatelessWidget {
         actions: [
           if (themeModeController != null) IconButton(
             icon: const Icon(Icons.brightness_4_sharp),
-            onPressed: () {
-              themeModeController!.value = themeModeController!.value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-            },
+            onPressed: () => themeModeController!.toggle(),
           ),
         ],
       ),
@@ -101,4 +114,12 @@ class FanciPlaygroundTab {
     required this.label, 
     required this.page
   });
+}
+
+class ThemeModeController extends ValueNotifier<ThemeMode> {
+  ThemeModeController(super.value);
+
+  void toggle() {
+    value = value == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+  }
 }
