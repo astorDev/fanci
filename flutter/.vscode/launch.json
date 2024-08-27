@@ -3,7 +3,6 @@
     "configurations": [
         {
             "name": "Playground",
-            "cwd": "flutter",
             "request": "launch",
             "type": "dart"
         }
