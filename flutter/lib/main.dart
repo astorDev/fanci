@@ -1,6 +1,8 @@
 import 'package:fanci/fanci_playground.dart';
+import 'package:fanci/mock_column.dart';
+import 'package:fanci/sliding_playground.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(MyPlaygroundApp());
@@ -19,12 +21,12 @@ class MyPlaygroundApp extends StatelessWidget {
         FanciPlaygroundTab(
           emoji: '📊', 
           label: 'Tabs',
-          page: TabsContentColumn()
+          page: TabsShowcases()
         ),
         FanciPlaygroundTab(
-          emoji: '🍌', 
-          label: 'Banana',
-          page: Center(child: Text('Rage for Banana'))
+          emoji: '🏃', 
+          label: 'Slide',
+          page: SlidingShowcase()
         ),
         FanciPlaygroundTab(
           emoji: '🍊', 
@@ -36,8 +38,10 @@ class MyPlaygroundApp extends StatelessWidget {
   }
 }
 
-class TabsContentColumn extends StatelessWidget {
-  const TabsContentColumn({
+
+
+class TabsShowcases extends StatelessWidget {
+  const TabsShowcases({
     super.key,
   });
 
@@ -61,8 +65,44 @@ class TabsContentColumn extends StatelessWidget {
   }
 }
 
-class CustomTabsView extends StatelessWidget {
-  var tabIndexController = ValueNotifier(0);
+class CustomTabsView extends StatefulWidget  {
+  @override
+  State<CustomTabsView> createState() => _CustomTabsViewState();
+}
+
+class TabSelection {
+  final int current;
+  final int? previous;
+
+  TabSelection(this.current, this.previous);
+}
+
+class TabSelectionController extends ChangeNotifier implements ValueListenable<TabSelection> {
+  
+  TabSelection _value = TabSelection(0, null);
+  @override
+  TabSelection get value => _value;
+
+  void select(int tabIndex) {
+    _value = TabSelection(tabIndex, _value.current);
+    notifyListeners();
+  }
+}
+
+class _CustomTabsViewState extends State<CustomTabsView> with SingleTickerProviderStateMixin {
+  var selectionController = TabSelectionController();
+  late final AnimationController slideController = AnimationController(
+    duration: kTabScrollDuration,
+    vsync: this,
+  );
+
+  Widget getChild(int index) {
+    if (index == 0) return CarMockColumn();
+    if (index == 1) return TransitMockColumn();
+    if (index == 2) return BikeMockColumn();
+
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,25 +110,31 @@ class CustomTabsView extends StatelessWidget {
       children: [
         Row(
           children: [
-            InkWell(
-              onTap: () => tabIndexController.value = 0,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Icon(Icons.directions_car),
+            Expanded(
+              child: InkWell(
+                onTap: () => selectionController.select(0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  child: Icon(Icons.directions_car),
+                ),
               ),
             ),
-            InkWell(
-              onTap: () => tabIndexController.value = 1,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Icon(Icons.directions_transit),
+            Expanded(
+              child: InkWell(
+                onTap: () => selectionController.select(1),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  child: Expanded(child: Icon(Icons.directions_transit)),
+                ),
               ),
             ),
-            InkWell(
-              onTap: () => tabIndexController.value = 2,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Icon(Icons.directions_bike),
+            Expanded(
+              child: InkWell(
+                onTap: () => selectionController.select(2),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  child: Expanded(child: Icon(Icons.directions_bike)),
+                ),
               ),
             ),
           ],
@@ -98,13 +144,19 @@ class CustomTabsView extends StatelessWidget {
           color: Colors.orange,
         ),
         ValueListenableBuilder(
-          valueListenable: tabIndexController,
-          builder: (context, index, child) {
-            if (index == 0) return CarMockColumn();
-            if (index == 1) return TransitMockColumn();
-            if (index == 2) return BikeMockColumn();
+          valueListenable: selectionController,
+          builder: (context, selection, child) {
+            if (selection.previous == null) {
+              return getChild(selection.current);
+            }
 
-            return MockColumn();
+            slideController.forward(from: 0);
+            
+            return StandardSliding(
+              direction: selection.current > selection.previous! ? SlideDirection.left : SlideDirection.right, 
+              animationController: slideController, 
+              child: getChild(selection.current),
+            );
           }
         )
       ]
@@ -145,28 +197,6 @@ class CarMockColumn extends StatelessWidget {
   }
 }
 
-class MockColumn extends StatelessWidget{
-  int height;
-  Widget Function(int)? itemBuilder;
-
-  MockColumn({
-    super.key,
-    this.height = 5,
-    this.itemBuilder
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var range = List<int>.generate(height, (i) => i + 1);
-    var effectiveItemBuilder = itemBuilder ?? (i) => Text('Item #$i');
-
-    return Column(
-      children: range.map(effectiveItemBuilder).toList(),
-    );
-  }
-
-}
-
 class BuiltInTabsView extends StatelessWidget {
   const BuiltInTabsView({
     super.key,
@@ -186,7 +216,7 @@ class BuiltInTabsView extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 200,
+            height: 150,
             child: TabBarView(
               children: [
                 CarMockColumn(),
