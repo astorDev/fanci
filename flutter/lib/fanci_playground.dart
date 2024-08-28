@@ -49,13 +49,12 @@ class ThemedBuilder extends StatelessWidget {
   );
 }
 
-class FanciPlaygroundPage extends StatelessWidget {
+class FanciPlaygroundPage extends StatefulWidget {
   final String appName;
-  final ValueNotifier navigationBarIndex = ValueNotifier(0);
   final List<FanciPlaygroundTab> tabs;
   final ThemeModeController? themeModeController;
 
-  FanciPlaygroundPage({
+  const FanciPlaygroundPage({
     super.key,
     required this.appName,
     required this.tabs,
@@ -63,26 +62,33 @@ class FanciPlaygroundPage extends StatelessWidget {
   });
 
   @override
+  State<FanciPlaygroundPage> createState() => _FanciPlaygroundPageState();
+}
+
+class _FanciPlaygroundPageState extends State<FanciPlaygroundPage> {
+  final ValueNotifier navigationBarIndex = ValueNotifier(0);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$appName Playground'),
+        title: Text('${widget.appName} Playground'),
         actions: [
-          if (themeModeController != null) IconButton(
+          if (widget.themeModeController != null) IconButton(
             icon: const Icon(Icons.brightness_4_sharp),
-            onPressed: () => themeModeController!.toggle(),
+            onPressed: () => widget.themeModeController!.toggle(),
           ),
         ],
       ),
       bottomNavigationBar: ValueListenableBuilder(
         valueListenable: navigationBarIndex,
         builder: (context, pageIndex, _) {
-          if (tabs.length == 1) return Container(height: 0);
+          if (widget.tabs.length == 1) return Container(height: 0);
           
           return NavigationBar(
             selectedIndex: pageIndex,
             onDestinationSelected: (index) => navigationBarIndex.value = index,
-            destinations: tabs.map((t) => t.navigationDestination).toList()
+            destinations: widget.tabs.map((t) => t.navigationDestination).toList()
           );
         } ,
       ),
@@ -91,7 +97,7 @@ class FanciPlaygroundPage extends StatelessWidget {
         child: ValueListenableBuilder(
           valueListenable: navigationBarIndex,
           builder: (context, pageIndex, _) {
-            return tabs[pageIndex].page;
+            return widget.tabs[pageIndex].page;
           }
         ),
       ),
