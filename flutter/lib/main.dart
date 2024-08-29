@@ -19,14 +19,14 @@ class MyPlaygroundApp extends StatelessWidget {
       appName: 'Fanci',
       tabs: [
         FanciPlaygroundTab(
-          emoji: '📊', 
-          label: 'Tabs',
-          page: TabsShowcases()
-        ),
-        FanciPlaygroundTab(
           emoji: '🏃', 
           label: 'Slide',
           page: SlidingShowcase()
+        ),
+        FanciPlaygroundTab(
+          emoji: '📊', 
+          label: 'Tabs',
+          page: TabsShowcases()
         ),
         FanciPlaygroundTab(
           emoji: '🍊', 
@@ -37,8 +37,6 @@ class MyPlaygroundApp extends StatelessWidget {
     );
   }
 }
-
-
 
 class TabsShowcases extends StatelessWidget {
   const TabsShowcases({
@@ -110,38 +108,26 @@ class _CustomTabsViewState extends State<CustomTabsView> with SingleTickerProvid
       children: [
         Row(
           children: [
-            Expanded(
-              child: InkWell(
-                onTap: () => selectionController.select(0),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Icon(Icons.directions_car),
-                ),
-              ),
+            TabBarHeaderView(
+              selectionController: selectionController,
+              index: 0,
+              icon: Icons.directions_car,
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () => selectionController.select(1),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Expanded(child: Icon(Icons.directions_transit)),
-                ),
-              ),
+            TabBarHeaderView(
+              selectionController: selectionController,
+              index: 1,
+              icon: Icons.directions_transit,
             ),
-            Expanded(
-              child: InkWell(
-                onTap: () => selectionController.select(2),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  child: Expanded(child: Icon(Icons.directions_bike)),
-                ),
-              ),
+            TabBarHeaderView(
+              selectionController: selectionController,
+              index: 2,
+              icon: Icons.directions_bike,
             ),
           ],
         ),
         Container(
           height: 1,
-          color: Colors.orange,
+          color: Theme.of(context).colorScheme.outlineVariant,
         ),
         ValueListenableBuilder(
           valueListenable: selectionController,
@@ -164,36 +150,54 @@ class _CustomTabsViewState extends State<CustomTabsView> with SingleTickerProvid
   }
 }
 
-class BikeMockColumn extends StatelessWidget {
-  const BikeMockColumn({
+
+
+
+class TabBarHeaderView extends StatelessWidget {
+  final TabSelectionController selectionController;
+  final int index;
+  bool get isSelected => selectionController.value.current == index;
+  final IconData icon;
+
+  const TabBarHeaderView({
     super.key,
+    required this.selectionController,
+    required this.index,
+    required this.icon
   });
 
   @override
   Widget build(BuildContext context) {
-    return MockColumn(height: 7, itemBuilder: (i) => Text('Bike #$i'),);
-  }
-}
-
-class TransitMockColumn extends StatelessWidget {
-  const TransitMockColumn({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MockColumn(height: 5, itemBuilder: (i) => Text('Transit #$i'),);
-  }
-}
-
-class CarMockColumn extends StatelessWidget {
-  const CarMockColumn({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return MockColumn(height: 3, itemBuilder: (i) => Text('Car #$i'),);
+    return ValueListenableBuilder(
+      valueListenable: selectionController,
+      builder: (context, selectedIndex, child) {
+        return Expanded(
+          child: InkWell(
+            overlayColor: WidgetStateProperty.all(Theme.of(context).colorScheme.primary.withOpacity(0.1)),
+            onTap: () => selectionController.select(index),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  child: Icon(
+                    icon,
+                    color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface,
+                  ),
+                ),
+                Container(
+                  height: 3,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(3)),
+                    color: isSelected ? Theme.of(context).colorScheme.primary : Colors.transparent
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      }
+    );
   }
 }
 
@@ -228,5 +232,38 @@ class BuiltInTabsView extends StatelessWidget {
         ],
       )
     );
+  }
+}
+
+class BikeMockColumn extends StatelessWidget {
+  const BikeMockColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MockColumn(height: 7, itemBuilder: (i) => Text('Bike #$i'),);
+  }
+}
+
+class TransitMockColumn extends StatelessWidget {
+  const TransitMockColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MockColumn(height: 5, itemBuilder: (i) => Text('Transit #$i'),);
+  }
+}
+
+class CarMockColumn extends StatelessWidget {
+  const CarMockColumn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return MockColumn(height: 3, itemBuilder: (i) => Text('Car #$i'),);
   }
 }
