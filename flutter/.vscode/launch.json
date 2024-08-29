@@ -10,7 +10,7 @@
             "name": "Animation",
             "request": "launch",
             "type": "dart",
-            "program": "lib/animation_playground.dart"
+            "program": "lib/animation/playground.dart"
         }
     ]
 }

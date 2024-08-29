@@ -1,3 +1,4 @@
+import 'package:fanci/animation/stack_based_case.dart';
 import 'package:fanci/fanci_playground.dart';
 import 'package:flutter/material.dart';
 import 'package:fanci/main.dart';
@@ -19,6 +20,11 @@ class MyPlaygroundApp extends StatelessWidget {
       appName: 'Animation',
       tabs: [
         FanciPlaygroundTab(
+          emoji: '🧱', 
+          label: 'Stack Based', 
+          page: StackBasedCase()
+        ),
+        FanciPlaygroundTab(
           emoji: '🚥', 
           label: 'Indicator',
           page: IndicatorCase()
@@ -33,27 +39,54 @@ class MyPlaygroundApp extends StatelessWidget {
   }
 }
 
-class SlidingShowcase extends StatelessWidget {
+void switchToRandomTab(TabSelectionController currentIndexController) {
+  var random = Random();
+  var target = random.nextInt(3);
+  while (target == currentIndexController.value.current) {
+    target = random.nextInt(3);
+  }
+
+  currentIndexController.select(target);
+}
+
+double calculateIndexPosition(int index, double totalWidth, {double indicatorWidth = 20}) {
+  var widthExcludingIndicators = totalWidth - indicatorWidth * 3;
+  var spaceSplitByIndicators = widthExcludingIndicators / 6;
+
+  var usedByOffIndicators = index * indicatorWidth;
+  var spacesCountBeforeCurrentIndicator = index * 2 + 1;
+  var usedBySpaces = spacesCountBeforeCurrentIndicator * spaceSplitByIndicators;
+
+  return usedBySpaces + usedByOffIndicators;
+}
+
+double calculateCurrentPosition(int sourceIndex, int targetIndex, double progress, double totalWidth, {double indicatorWidth = 20}) {
+    var targetPosition = calculateIndexPosition(targetIndex, totalWidth, indicatorWidth: indicatorWidth);
+    var sourcePosition = calculateIndexPosition(sourceIndex, totalWidth, indicatorWidth: indicatorWidth);
+    var distance = (targetPosition - sourcePosition).abs();
+    var passedDistance = distance * progress;
+    return targetPosition > sourcePosition ? 
+      sourcePosition + passedDistance
+      : sourcePosition - passedDistance;
+}
+
+class RunningContainer extends StatelessWidget {
+  const RunningContainer({
+    super.key,
+  });
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          child: SizedBox(
-            width: 400,
-            height: 200,
-            child: StandardSlidingCase()
-          ),
-        ),
-        SizedBox(height: 20),
-        Card(
-          child: SizedBox(
-            width: 400,
-            height: 200,
-            child: IndicatorCase()
-          ),
-        ),
-      ],
+    var size = MediaQuery.sizeOf(context);
+    print(size.width);
+
+    return Positioned(
+      left: size.width / 2 - 10,
+      child: Container(
+        width: 20,
+        height: 20,
+        color: Colors.blue,
+      )
     );
   }
 }
@@ -65,7 +98,7 @@ class StandardSlidingCase extends StatefulWidget {
 
 class _StandardSlidingCaseState extends State<StandardSlidingCase> with SingleTickerProviderStateMixin {
   late final AnimationController firstController = AnimationController(
-    duration: const Duration(milliseconds: 100),
+    duration: const Duration(milliseconds: 8000),
     vsync: this,
   )
   ..forward()
@@ -131,13 +164,7 @@ class _IndicatorCaseState extends State<IndicatorCase> with SingleTickerProvider
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            Expanded(child: Icon(Icons.arrow_circle_right_rounded)),
-            Expanded(child: Icon(Icons.circle)),
-            Expanded(child: Icon(Icons.star)),
-          ],
-        ),
+        ExpandedIconRow(),
         ValueListenableBuilder(
           valueListenable: currentIndexController,
           builder: (context, selection, child) {
@@ -177,6 +204,23 @@ class _IndicatorCaseState extends State<IndicatorCase> with SingleTickerProvider
   }
 }
 
+class ExpandedIconRow extends StatelessWidget {
+  const ExpandedIconRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(child: Icon(Icons.arrow_circle_right_rounded)),
+        Expanded(child: Icon(Icons.circle)),
+        Expanded(child: Icon(Icons.star)),
+      ],
+    );
+  }
+}
+
 class IndicatorCustomPainter extends CustomPainter {
   double indicatorWidth = 20;
   int targetIndex;
@@ -189,26 +233,11 @@ class IndicatorCustomPainter extends CustomPainter {
     this.progress = 1,
   });
 
-  double calculatePosition(int index, double totalWidth) {
-  var widthExcludingIndicators = totalWidth - indicatorWidth * 3;
-    var spaceSplitByIndicators = widthExcludingIndicators / 6;
 
-    var usedByOffIndicators = index * indicatorWidth;
-    var spacesCountBeforeCurrentIndicator = index * 2 + 1;
-    var usedBySpaces = spacesCountBeforeCurrentIndicator * spaceSplitByIndicators; 
-
-    return usedBySpaces + usedByOffIndicators;
-  }
 
   @override
   void paint(Canvas canvas, Size size) {
-    var targetPosition = calculatePosition(targetIndex, size.width);
-    var sourcePosition = calculatePosition(sourceIndex, size.width);
-    var distance = (targetPosition - sourcePosition).abs();
-    var passedDistance = distance * progress;
-    var currentPosition = targetPosition > sourcePosition ? 
-      sourcePosition + passedDistance
-      : sourcePosition - passedDistance;
+    var currentPosition = calculateCurrentPosition(sourceIndex, targetIndex, progress, size.width);
 
     canvas.drawRect(
       Rect.fromLTWH(
