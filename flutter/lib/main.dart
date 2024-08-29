@@ -82,6 +82,7 @@ class TabSelectionController extends ChangeNotifier implements ValueListenable<T
   TabSelection get value => _value;
 
   void select(int tabIndex) {
+    print('switching from ${_value.current} to $tabIndex');
     _value = TabSelection(tabIndex, _value.current);
     notifyListeners();
   }
