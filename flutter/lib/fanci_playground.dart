@@ -92,13 +92,15 @@ class _FanciPlaygroundPageState extends State<FanciPlaygroundPage> {
           );
         } ,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(40),
-        child: ValueListenableBuilder(
-          valueListenable: navigationBarIndex,
-          builder: (context, pageIndex, _) {
-            return widget.tabs[pageIndex].page;
-          }
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: ValueListenableBuilder(
+            valueListenable: navigationBarIndex,
+            builder: (context, pageIndex, _) {
+              return widget.tabs[pageIndex].page;
+            }
+          ),
         ),
       ),
     );
