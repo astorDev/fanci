@@ -10,7 +10,7 @@ I've always found it fascinating how ridiculously complex Flutter tutorials make
 
 ## ~~Needle~~ Indicator in the ~~Hay~~stack
 
-First, let's create a widget of the indicator itself. We'll just have slightly rounded on top fixed width and height rectangle, like that:
+First, let's create a widget of the indicator itself. We'll just have a slightly rounded, fixed width and height rectangle, like that:
 
 ```dart
 class Indicator extends StatelessWidget {
@@ -28,7 +28,7 @@ class Indicator extends StatelessWidget {
 }
 ```
 
-Our indicator is supposed to slide under the icons equally distributed around card. The indicator should slide on top of the card, like it would in the case of Tabs. This is a case for `Stack` widget. We'll also need a button for triggering the animation, for now it will not do anything. Let's build our "canvas" as a widget, allowing us to pass our Indicator and Triggering action as a `child` and `onButtonPressed` parameters: 
+Our indicator is supposed to slide under the icons equally distributed around the card. The indicator should slide on top of the card like it would in the case of Tabs. This is a case for the `Stack` widget. We'll also need a button for triggering the animation, for now, it will not do anything. Let's build our "canvas" as a widget, allowing us to pass our Indicator and Triggering action as a `child` and `onButtonPressed` parameters: 
 
 ```dart
 class ShowcaseStackCard extends StatelessWidget {
@@ -73,7 +73,7 @@ class ShowcaseStackCard extends StatelessWidget {
 }
 ```
 
-Let's see what we'll have now, if we'll just pass a fresh `Indicator` as a parameter:
+Let's see what we'll have now if we'll just pass a fresh `Indicator` as a parameter:
 
 ```dart
 ShowcaseStackCard(
@@ -116,7 +116,7 @@ class RelativelyPositioned extends StatelessWidget {
 }
 ```
 
-Calculating top offset is trivial, it's just `size.height - 3`. For the left offset let's calculate how much offset we'll need to do to end up under an icon at a particular index. Let's imagine our real estate combined of two occupants: spaces and indicators (places for indicators). Below each icon we'll have: `Left Spacing -> Indicator Spacing -> Right Spacing`. With that in mind here's the resulting calculations:
+Calculating top offset is trivial, it's just `size.height - 3`. For the left offset let's calculate how much offset we'll need to do to end up under an icon at a particular index. Let's imagine our real estate hosted two occupants: spaces and indicators (places for indicators). Below each icon, we'll have: `Left Spacing -> Indicator Spacing -> Right Spacing`. With that in mind here are the resulting calculations:
 
 ```dart
 double calculateLeftOffset(int targetIndex, double totalWidth) {
@@ -150,8 +150,6 @@ class TabsIndicatorCaseV2 extends StatelessWidget {
 ```
 
 ![](v2-demo.png)
-
-
 
 ## Indicator on It's Way
 
