@@ -14,7 +14,7 @@ class _StackBasedCaseState extends State<StackBasedCase> with SingleTickerProvid
 
   final TabSelectionController tabSelectionController = TabSelectionController();
   late final AnimationController animationController = AnimationController(
-    duration: const Duration(milliseconds: 500),
+    duration: const Duration(milliseconds: 200),
     vsync: this,
   );
 
@@ -46,18 +46,16 @@ class _StackBasedCaseState extends State<StackBasedCase> with SingleTickerProvid
                 ExpandedIconRow(),
               ],
             ),
-            ...flowImitationIndicatorWidgets()
-
-            // AnimatedBuilder(
-            //   animation: animationController, 
-            //   builder: (_, __) {
-            //     return LayoutedMarginedIndicator(
-            //       tabSelection: tabSelectionController.value,
-            //       progress: animationController.value,
-            //     );
-            //   }
-            // )
-
+            //...flowImitationIndicatorWidgets()
+            AnimatedBuilder(
+              animation: animationController, 
+              builder: (_, __) {
+                return LayoutedMarginedIndicator(
+                  tabSelection: tabSelectionController.value,
+                  progress: animationController.value,
+                );
+              }
+            )
           ],
         ),
       ),
@@ -66,8 +64,6 @@ class _StackBasedCaseState extends State<StackBasedCase> with SingleTickerProvid
 }
 
 List<Widget> flowImitationIndicatorWidgets() {
-  
-  
   return [
     LayoutedMarginedIndicator(
       tabSelection: TabSelection(2, 1),
