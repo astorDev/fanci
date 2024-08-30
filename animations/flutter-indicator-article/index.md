@@ -20,4 +20,4 @@ Using `AnimationController` we was able to trigger animation by calling `animati
 
 ![](final-demo.gif)
 
-By the way... Claps are appreciated! 👏
+You can checkout the full code [here](https://github.com/astorDev/fanci/blob/main/flutter/lib/animation/stack_based_case.dart). There's also a playground app in the repo. And one more thing... Claps are appreciated! 👏
