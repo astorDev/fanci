@@ -1,4 +1,4 @@
-import 'package:fanci/animation/stack_based_case.dart';
+import 'package:fanci/animation/tabs_indicator.dart';
 import 'package:fanci/fanci_playground.dart';
 import 'package:flutter/material.dart';
 import 'package:fanci/main.dart';
@@ -20,18 +20,18 @@ class MyPlaygroundApp extends StatelessWidget {
       appName: 'Animation',
       tabs: [
         FanciPlaygroundTab(
-          emoji: '🧱', 
-          label: 'Stack Based', 
-          page: StackBasedCase()
+          emoji: '🚥', 
+          label: 'Tabs Indicator', 
+          page: TabsIndicatorCaseVersioned()
         ),
         FanciPlaygroundTab(
-          emoji: '🚥', 
-          label: 'Indicator',
-          page: IndicatorCase()
+          emoji: '🎨', 
+          label: 'Custom Paint',
+          page: CustomPaintCase()
         ),
         FanciPlaygroundTab(
           emoji: '🏄🏻‍♂️', 
-          label: 'Sliding Left',
+          label: 'Sliding Column',
           page: StandardSlidingCase()
         ),
       ],
@@ -130,12 +130,12 @@ class _StandardSlidingCaseState extends State<StandardSlidingCase> with SingleTi
   }
 }
 
-class IndicatorCase extends StatefulWidget {
+class CustomPaintCase extends StatefulWidget {
   @override
-  State<IndicatorCase> createState() => _IndicatorCaseState();
+  State<CustomPaintCase> createState() => _CustomPaintCaseState();
 }
 
-class _IndicatorCaseState extends State<IndicatorCase> with SingleTickerProviderStateMixin {
+class _CustomPaintCaseState extends State<CustomPaintCase> with SingleTickerProviderStateMixin {
   TabSelectionController currentIndexController = TabSelectionController();
 
   late final AnimationController firstController = AnimationController(
@@ -213,7 +213,7 @@ class ExpandedIconRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Icon(Icons.arrow_circle_right_rounded)),
+        Expanded(child: Icon(Icons.square)),
         Expanded(child: Icon(Icons.circle)),
         Expanded(child: Icon(Icons.star)),
       ],
