@@ -1,6 +1,6 @@
 import 'package:fanci/fanci_playground.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 void main() {
   runApp(MyPlaygroundApp());
@@ -27,10 +27,18 @@ class MyPlaygroundApp extends StatelessWidget {
 }
 
 class Accessor {
-  static final collection = CollectionController<String>(List.generate(10, (index) => index.toString())..shuffle());
+  static Uuid uuid = Uuid();
+
+  static final collection = CollectionController<String>(
+    List.generate(3, (index) => uuid.v4())..shuffle()
+  );
 
   static void remove(String itemValue) {
     collection.remove(itemValue);
+  }
+
+  static void add() {
+    collection.add(uuid.v4());
   }
 }
 
@@ -41,6 +49,10 @@ class ProblemCase extends StatelessWidget {
       valueListenable: Accessor.collection,
       builder: (context, items, child) => Column(
         children: [
+          TextButton(
+            onPressed: Accessor.add,
+            child: Text('Add new item')
+          ),
           for (var e in items)
             TileAtIndex(
               index: e,
@@ -59,6 +71,14 @@ class CollectionController<T> extends ValueNotifier<List<T>> {
     var updated = List<T>.from(value);
     updated.shuffle();
     updated.remove(itemValue);
+
+    value = updated;
+    notifyListeners();
+  }
+
+  void add(T addedItem) {
+    var updated = List<T>.from(value);
+    updated.add(addedItem);
 
     value = updated;
     notifyListeners();
