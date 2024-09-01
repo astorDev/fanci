@@ -27,9 +27,9 @@ class MyPlaygroundApp extends StatelessWidget {
 }
 
 class Accessor {
-  static final collection = CollectionController<int>(List.generate(10, (index) => index));
+  static final collection = CollectionController<String>(List.generate(10, (index) => index.toString())..shuffle());
 
-  static void remove(int itemValue) {
+  static void remove(String itemValue) {
     collection.remove(itemValue);
   }
 }
@@ -55,15 +55,19 @@ class ProblemCase extends StatelessWidget {
 class CollectionController<T> extends ValueNotifier<List<T>> {
   CollectionController(super.value);
 
-  void remove(int itemValue) {
-    value.remove(itemValue);
+  void remove(T itemValue) {
+    var updated = List<T>.from(value);
+    updated.shuffle();
+    updated.remove(itemValue);
+
+    value = updated;
     notifyListeners();
   }
 }
 
 class TileAtIndex extends StatefulWidget {
-  final int index;
-  final Function(int index) onRemoveMeTap;
+  final String index;
+  final Function(String index) onRemoveMeTap;
   
   const TileAtIndex({
     super.key,
@@ -82,7 +86,7 @@ class _TileAtIndexState extends State<TileAtIndex> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       controller: controller,
-      title: Text('Tile #${widget.index + 1}'),
+      title: Text('Tile #${widget.index}'),
       children: [
         TextButton(
           onPressed: () {
