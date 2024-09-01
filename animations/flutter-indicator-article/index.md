@@ -116,7 +116,7 @@ class RelativelyPositioned extends StatelessWidget {
 }
 ```
 
-Calculating top offset is trivial, it's just `size.height - 3`. For the left offset let's calculate how much offset we'll need to do to end up under an icon at a particular index. Let's imagine our real estate hosted two occupants: spaces and indicators (places for indicators). Below each icon, we'll have: `Left Spacing -> Indicator Spacing -> Right Spacing`. With that in mind here are the resulting calculations:
+Calculating top offset is trivial, it's just `size.height - 3`. For the left offset let's calculate how much offset we'll need to do to end up under an icon at a particular index. Let's imagine our real estate hosting two occupants: spaces and indicators (places for indicators). Below each icon, we'll have: `Left Spacing -> Indicator Spacing -> Right Spacing`. With that in mind here are the resulting calculations:
 
 ```dart
 double calculateLeftOffset(int targetIndex, double totalWidth) {
@@ -130,7 +130,7 @@ double calculateLeftOffset(int targetIndex, double totalWidth) {
 }
 ```
 
-Using the newly created widgets and function we'll be able to position our indicator under the 
+Using the newly created widgets and function we'll be able to position our indicator under the right most icon (index = 2).
 
 ```dart
 class TabsIndicatorCaseV2 extends StatelessWidget {
@@ -153,6 +153,14 @@ class TabsIndicatorCaseV2 extends StatelessWidget {
 
 ## Indicator on It's Way
 
+Now let's get back to the animation. When an animation is triggered our indicator should slowly move from the offset of the index from which the animation is starting towards the offset of the index where the indicator must end up. So to calculate indicator offset in any giving time we will need to know: 
+
+- `sourceIndex` to calculate starting offset
+- `targetIndex` to calculate target offset.
+- `progress` of the animation. With 0 meaning indicator is under the source, 1 meaning indicator is under the target, and 0.5 meaning indicator is half way through.
+
+Here's what the resulting calculation will look like:
+
 ```dart
 double calculateMovingLeftOffset({
   required int sourceIndex,
@@ -171,6 +179,8 @@ double calculateMovingLeftOffset({
       : sourcePosition - passedDistance;
 }
 ```
+
+With the calculation parameters in mind, we can figure out what our button should do. Besides knowing `current` selected index, we should also track `previous` selected index to correctly animate the widget. The flutter-way to organize the tracking will be to create a controller, implementing `ValueListenable`. Here's how it will look in our case:
 
 ```dart
 class IndexSelection {
@@ -201,6 +211,8 @@ class IndexSelectionController extends ChangeNotifier implements ValueListenable
   }
 }
 ```
+
+To combine this all in a functional widget we'll listen to our `IndexSelectionController` utilizing `ValueListenableBuilder`. Since we not yet really implemented an animation we will hard code `progress` to be `1`, meaning that the indicator will imediately end up in the target location. This is what we'll get:
 
 ```dart
 class TabsIndicatorCaseV3 extends StatelessWidget {
@@ -234,6 +246,8 @@ class TabsIndicatorCaseV3 extends StatelessWidget {
 
 ## Animating the Indicator
 
+Finally, let's implement the animation! Remember, that I've said we'll need only one widget and one controller for that. Well, the controller is, unsurprisingly, an `AnimationController`. An `AnimationController` have a `vsync` parameter accepting `SingleTickerProviderStateMixin`. To get the `SingleTickerProviderStateMixin` we'll need to first convert our widget to a Stateful Widget and add this class in the mix. Then, we'll be able to create the `AnimationController` passing `this` and a required animation `duration`. We'll use 200 milliseconds in our case. Here's how it may look like:
+
 ```dart
 class _TabsIndicatorCaseFinalState extends State<TabsIndicatorCaseFinal> with SingleTickerProviderStateMixin {
   late final AnimationController animationController = AnimationController(
@@ -244,6 +258,8 @@ class _TabsIndicatorCaseFinalState extends State<TabsIndicatorCaseFinal> with Si
   // ...
 }
 ```
+
+To trigger the animation we'll have to call a method on animation controller. In our case we want animation to always start from the very beginning (0) and move `forward` - up to the end (1). We also need to trigger the animation every time index controller state changes. To bind the controller together we'll take advantage of the fact that `IndexSelectionController` is listenable and listen for the controller events to trigger the navigation. A perfect place to setup the binding would be the `initState` method. Here's how we'll do it: 
 
 ```dart
 @override
@@ -256,9 +272,13 @@ void initState() {
 }
 ```
 
+Now, we'll replace our previously hard-coded progress to the actual animation progress indicated by the `animationController.value`:
+
 ```dart
 progress: animationController.value,
 ```
+
+And instead of listening to `IndexSelectionController` via `ValueListenableBuilder`, we'll now listen to a state changes of animation controller. This we'll be done by utilizing a single widget we'll need for implementing the animation: `AnimationBuilder`:
 
 ```dart
 AnimatedBuilder(
@@ -267,6 +287,8 @@ AnimatedBuilder(
     // ...
 ),
 ```
+
+Here's what the full code of our animated widget will look like:
 
 ```dart
 class TabsIndicatorCaseFinal extends StatefulWidget {
@@ -315,7 +337,7 @@ class _TabsIndicatorCaseFinalState extends State<TabsIndicatorCaseFinal> with Si
 }
 ```
 
-Let's sum this up!
+This is the last lines of code we'll need, but before we'll see the result, let's sum up what we have done in this article!
 
 ## TLDR;
 
