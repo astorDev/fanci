@@ -11,6 +11,12 @@
             "request": "launch",
             "type": "dart",
             "program": "lib/animation/playground.dart"
+        },
+        {
+            "name": "Expansion Tile",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/expansion_tile/playground.dart"
         }
     ]
 }
