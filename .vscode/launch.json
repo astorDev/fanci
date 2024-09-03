@@ -12,6 +12,12 @@
             "request" : "launch",
             "type" : "dart",
             "program" : "flutter/lib/lifecycle/playground.dart"
+        },
+        {
+            "name" : "Flutter Tabs",
+            "request" : "launch",
+            "type" : "dart",
+            "program" : "flutter/lib/tabs/playground.dart"
         }
     ]
 }
