@@ -15,8 +15,11 @@ class TabsIndicatorCaseVersioned extends StatelessWidget {
       Text('V3'),
       TabsIndicatorCaseV3(),
       SizedBox(height: 30),
-      Text('Final'),
+      Text('Tabs And Animation Controllers'),
       TabsIndicatorCaseFinal(),
+      SizedBox(height: 30),
+      Text('AnimatedPadding Based'),
+      TabsIndicatorCaseAnimatedOffset(),
       SizedBox(height: 30),
       Text('Thumbnail'),
       TabsIndicatorCaseThumbnail()
@@ -60,7 +63,7 @@ class ShowcaseStackCard extends StatelessWidget {
                 TextButton(
                     onPressed: onButtonPressed,
                     child: Text('Slide Under Random Icon')),
-                Row(
+                const Row(
                   children: [
                     Expanded(child: Icon(Icons.square)),
                     Expanded(child: Icon(Icons.circle)),
@@ -249,6 +252,47 @@ class _TabsIndicatorCaseFinalState extends State<TabsIndicatorCaseFinal> with Si
   }
 }
 
+class TabsIndicatorCaseAnimatedOffset extends StatefulWidget {
+  const TabsIndicatorCaseAnimatedOffset({super.key});
+
+  @override
+  State<TabsIndicatorCaseAnimatedOffset> createState() => _TabsIndicatorCaseAnimatedOffsetState();
+}
+
+class _TabsIndicatorCaseAnimatedOffsetState extends State<TabsIndicatorCaseAnimatedOffset> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShowcaseStackCard(
+      child: LayoutBuilder(
+        builder: (ctx, constrains) {
+          var size = constrains.biggest;
+
+          return AnimatedPadding(
+            padding: EdgeInsets.only(
+              left: calculateLeftOffset(selectedIndex, size.width),
+              top: size.height - 3
+            ),
+            duration: const Duration(milliseconds: 200),
+            child: Indicator(),
+          );
+        }
+      ),
+      onButtonPressed: () => setState(() {
+        var target = Random().nextInt(3);
+        while (target == selectedIndex) {
+          target = Random().nextInt(3);
+        }
+
+        selectedIndex = target;
+      })
+    );
+  
+  }
+}
+
+
 class ThumbnailStackCard extends StatelessWidget {
   final List<Widget> children;
   final Function()? onButtonPressed;
@@ -273,7 +317,7 @@ class ThumbnailStackCard extends StatelessWidget {
                     onPressed: onButtonPressed,
                     child: Text('Slide Under Random Icon')),
                 Row(
-                  children: [
+                  children: const [
                     Expanded(child: Icon(Icons.square)),
                     Expanded(child: Icon(Icons.circle)),
                     Expanded(child: Icon(Icons.star)),
