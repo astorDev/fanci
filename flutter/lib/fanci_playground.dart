@@ -117,7 +117,7 @@ class FanciPlaygroundTab {
     label: label,
   );
 
-  FanciPlaygroundTab({
+  const FanciPlaygroundTab({
     required this.emoji, 
     required this.label, 
     required this.page
