@@ -1,4 +1,5 @@
 import 'package:fanci/fanci_playground.dart';
+import 'package:fanci/mock_column.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,16 +13,26 @@ class TabsPlaygroundApp extends StatelessWidget {
       appName: 'Tabs',
       tabs: [
         FanciPlaygroundTab(
-          emoji: '🚥', 
-          label: 'Main', 
-          page: MainTabsPlayground()
-        )
+          emoji: '😎', 
+          label: 'Main',
+          page: Main()
+        ),
+        FanciPlaygroundTab(
+          emoji: '🎨', 
+          label: 'Built-In',
+          page: BuiltInTabsPlayground()
+        ),
+        FanciPlaygroundTab(
+          emoji: '📏', 
+          label: 'Measurements', 
+          page: Measurements()
+        ),
       ],
     );
   }
 }
 
-class MainTabsPlayground extends StatelessWidget {
+class Measurements extends StatelessWidget {
   final GlobalKey _greenBoxKey = GlobalKey();
   final GlobalKey _orangeBoxKey = GlobalKey();
   
@@ -47,9 +58,98 @@ class MainTabsPlayground extends StatelessWidget {
             print(_orangeBoxKey.currentContext!.size);
           }, 
           child: Text('Print Sizes')
-        )
+        ),
       ]
     );
   }
+}
 
+class Main extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Card(
+          child: DefaultTabController(
+            length: 3, 
+            child: Column(
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.directions_car)),
+                    Tab(icon: Icon(Icons.directions_transit)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                  ]
+                ),
+                CustomTabView(
+                  children: [
+                    MockColumn(),
+                    MockColumn(height: 10,),
+                    MockColumn(height: 7,)
+                  ],
+                ),
+              ]
+            )
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BuiltInTabsPlayground extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Card(
+          child: DefaultTabController(
+            length: 3, 
+            child: Column(
+              children: [
+                TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.directions_car)),
+                    Tab(icon: Icon(Icons.directions_transit)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                  ]
+                ),
+                SizedBox( 
+                  height: 220.0, // Commenting the height out will produce an error (Failed assertion: 'hasSize')
+                  child: TabBarView(
+                    children: [
+                      MockColumn(),
+                      MockColumn(height: 10,),
+                      MockColumn(height: 7)
+                    ]
+                  ),
+                )
+              ]
+            )
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CustomTabView extends StatelessWidget {
+  final List<Widget> children;
+
+  const CustomTabView({
+    super.key,
+    required this.children,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var controller = DefaultTabController.of(context);
+    
+    return ListenableBuilder(
+      listenable: controller,
+      builder: (context, child) {
+        return children[controller.index];
+      }
+    );
+  }
 }
