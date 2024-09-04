@@ -1,0 +1,1 @@
+export 'package:fanci/tabs/lib.dart';
