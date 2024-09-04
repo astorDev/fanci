@@ -1,8 +1,9 @@
 name: fanci
-description: "A new Flutter project."
+description: "Various Flutter widgets and utilities to make your life easier."
+repository: https://github.com/astorDev/fanci/
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43

@@ -1,5 +1,6 @@
 import 'package:fanci/fanci_playground.dart';
 import 'package:fanci/mock_column.dart';
+import 'package:fanci/tabs/lib.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -81,7 +82,7 @@ class Main extends StatelessWidget {
                     Tab(icon: Icon(Icons.directions_bike)),
                   ]
                 ),
-                CustomTabView(
+                TabContentView(
                   children: [
                     MockColumn(),
                     MockColumn(height: 10,),
@@ -129,27 +130,6 @@ class BuiltInTabsPlayground extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class CustomTabView extends StatelessWidget {
-  final List<Widget> children;
-
-  const CustomTabView({
-    super.key,
-    required this.children,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var controller = DefaultTabController.of(context);
-    
-    return ListenableBuilder(
-      listenable: controller,
-      builder: (context, child) {
-        return children[controller.index];
-      }
     );
   }
 }
