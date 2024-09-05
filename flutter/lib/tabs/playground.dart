@@ -1,5 +1,4 @@
 import 'package:fanci/fanci_playground.dart';
-import 'package:fanci/mock_column.dart';
 import 'package:fanci/tabs/lib.dart';
 import 'package:flutter/material.dart';
 
@@ -84,9 +83,9 @@ class Main extends StatelessWidget {
                 ),
                 TabContentView(
                   children: [
-                    MockColumn(),
-                    MockColumn(height: 10,),
-                    MockColumn(height: 7,)
+                    MockColumn(5),
+                    MockColumn(10),
+                    MockColumn(7)
                   ],
                 ),
               ]
@@ -119,9 +118,9 @@ class BuiltInTabsPlayground extends StatelessWidget {
                   height: 220.0, // Commenting the height out will produce an error (Failed assertion: 'hasSize')
                   child: TabBarView(
                     children: [
-                      MockColumn(),
-                      MockColumn(height: 10,),
-                      MockColumn(height: 7)
+                      MockColumn(5),
+                      MockColumn(10),
+                      MockColumn(7)
                     ]
                   ),
                 )
@@ -130,6 +129,21 @@ class BuiltInTabsPlayground extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class MockColumn extends StatelessWidget {
+  final int itemCount;
+
+  const MockColumn(this.itemCount);
+
+  @override
+  Widget build(BuildContext context) {
+    var range = List<int>.generate(itemCount, (i) => i + 1);
+
+    return Column(
+      children: range.map((i) => Text('Item #$i')).toList(),
     );
   }
 }

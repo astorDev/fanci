@@ -19,5 +19,4 @@ class MockColumn extends StatelessWidget {
       children: range.map(effectiveItemBuilder).toList(),
     );
   }
-
 }
