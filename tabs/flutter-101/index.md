@@ -1,11 +1,10 @@
 # Flutter Tabs: TabBar and TabBarView.
 
 Tabs are a powerful layout tool frequently handy for a Flutter app. Interestingly enough, Flutter provides a rather unusual way of implementing them. In this article, I'll show you how to create a tab view. Starting from the basic implementation we'll investigate a few limitations and peculiarities Flutter tabs have and will try to overcome them. Let's jump to the code!
-Tabs are a powerful layout tool, frequently coming handy for a Flutter up. Interestingly enough, Flutter provides a rather unusual way of implementing them. In this article, I'll walk you through creating a tabs view. Starting from the basic implementation we'll investigate a few limitation and peculiarities Flutter tabs have and will try to overcome them. Let's jump to the code!
 
 ## Jump Start
 
-Before create a tab let's prepare a helper widget, that will help us easily mock tabs content. Here's a simple widget that will help us to generate a column with a supplied number of item:
+Before creating a tab let's prepare a helper widget, that will help us easily mock tabs content. Here's a simple widget that will help us to generate a column with a supplied number of items:
 
 ```dart
 class MockColumn extends StatelessWidget {
@@ -64,7 +63,7 @@ class BuiltInTabsPlayground extends StatelessWidget {
 }
 ```
 
-And this what the widget looks like:
+And this is what the widget looks like:
 
 ![](built-in.gif)
 
@@ -72,7 +71,7 @@ That seems good enough! However, if we'll study the code deeper we'll find a few
 
 ## `DefaultTabController` and Other Peculiarities
 
-You may notice the `SizedBox` with the hard-coded `height` and have a temptation to just remove it - why would we need it, right? Unfortunatelly, however, if we'll just comment out `height` of the `SizedBox` we'll get the nasty error, saying:
+You may notice the `SizedBox` with the hard-coded `height` and have a temptation to just remove it - why would we need it, right? Unfortunately, however, if we just comment out the `height` of the `SizedBox` we'll get the nasty error, saying:
 
 ```markdown
 The following assertion was thrown during performResize():
@@ -95,17 +94,17 @@ The relevant error-causing widget was:
 
 For now, let's get the `height` back and investigate other peculiarities we have in our implementation.
 
-If you coded in Flutter long enough you've probably already has encounter Controllers. However, for me personally it was a first Controller that is also a widget. Normally, controllers sit as a field in a widget state, allowing us to control certain behaviour. Seems like `DefaultTabController` is slightly different - it's not really supposed to be used by you, but it **is** supposed to be used by `TabBar` and `TabBarView`. In fact, both of those widgets also accept `TabController` as a parameter.
+If you coded in Flutter long enough you've probably already encountered Controllers. However, for me, it was the first Controller that is also a widget. Normally, controllers sit as a field in a widget state, allowing us to control certain behaviours. Seems like `DefaultTabController` is slightly different - it's not really supposed to be used by **you**, but it **is** supposed to be used by `TabBar` and `TabBarView`. In fact, both of those widgets also accept `TabController` as a parameter.
 
-`DefaultTabController` is not just a widget, it is an `InheritedWidget`. Essentially using it as a widget produces a scope in which it's children will bind to it. Serendipitously, that lays a comfortable foundation for us to fix the annoying `TabBarView` sizing problem by creating our own alternative and connecting to the same controller as our built-in counterpart.
+`DefaultTabController` is not just a widget, it is an `InheritedWidget`. Essentially using it as a widget produces a scope in which its children will bind to it. Serendipitously, that lays a comfortable foundation for us to fix the annoying `TabBarView` sizing problem by creating our own alternative and connecting to the same controller as our built-in counterpart.
 
-> Probably, hard-code controller's `length` is also worth mentioning in the list of strange things. However, despite being annoying boilerplate it doesn't seem to produce much harm. So we'll leave it as it is for now.
+> Probably, the hard-coded controller's `length` is also worth mentioning in the list of strange things. However, despite being annoying boilerplate it doesn't seem to produce much harm. So we'll leave it as it is for now.
 
 ## Creating the `TabContentView`
 
-Besides being an `InheritedWidget` `DefaultTabController` is also a `Listenable` (as most of the controllers are). So, all we'll need to do is to listen to the controllers changes and updating shown widget when they occur
+Besides being an `InheritedWidget` `DefaultTabController` is also a `Listenable` (as most of the controllers are). So, all we'll need to do is listen to the controller changes and update shown widget when they occur
 
-> The implementation could be made more complex if we'll add animation. However, this is out of the scope of this article.
+> The implementation could be made more complex if we add animation. However, this is out of the scope of this article.
 
 ```dart
 class TabContentView extends StatelessWidget {
@@ -130,7 +129,7 @@ class TabContentView extends StatelessWidget {
 }
 ```
 
-Now, if we'll use our `TabContentView` in the same structure we had before, we will be able to get rid of the `SizedBox` and it's annoying hard-coded `height`.
+Now, if we use our `TabContentView` in the same structure we had before, we will be able to get rid of the `SizedBox` and its annoying hard-coded `height`.
 
 ```dart
 class Main extends StatelessWidget {
@@ -167,11 +166,11 @@ class Main extends StatelessWidget {
 }
 ```
 
-And this will also change how our tab content will look and bahave. Before seeing the end result let's very quickly go through our little journey one more time.
+And this will also change how our tab content will look and behave. Before seeing the end result let's very quickly go through our little journey one more time.
 
 ## Recap
 
-In this article, we've investigated how to create a simple tabs layout in Flutter. Although it was quite simple it has some unpleasant requirement. Besides that, it provided a rather strange implementation, where controller was acting like a widget. Ironically this peculiarity made overcoming the impediment of the built-in widget pretty easy.  We've implemented our own widget for displaying tab content, called `TabContentView` (which to my taste is much clearer name, then `TabBarView`). With our implementation each tab have size based on it's content, looking like that:
+In this article, we've investigated how to create a simple tabs layout in Flutter. Although it was quite simple it has some unpleasant requirements. Besides that, it provided a rather strange implementation, where the controller was acting like a widget. Ironically this peculiarity made overcoming the impediment of the built-in widget pretty easy.  We've implemented our own widget for displaying tab content, called `TabContentView` (which to my taste is a much clearer name, than `TabBarView`). With our implementation each tab has size based on its content, looking like this:
 
 ![](final.gif)
 
