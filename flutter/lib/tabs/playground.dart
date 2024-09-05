@@ -115,6 +115,7 @@ class BuiltInTabsPlayground extends StatelessWidget {
                     Tab(icon: Icon(Icons.directions_bike)),
                   ]
                 ),
+                Text('lol'),
                 SizedBox( 
                   height: 220.0, // Commenting the height out will produce an error (Failed assertion: 'hasSize')
                   child: TabBarView(
