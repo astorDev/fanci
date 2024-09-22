@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class FanciPlaygroundApp extends StatelessWidget {
+class PlaygroundApp extends StatelessWidget {
   final ThemeModeController themeModeController = ThemeModeController(ThemeMode.light);
   final String appName;
-  final List<FanciPlaygroundTab> tabs;
+  final List<PlaygroundTab> tabs;
 
-  FanciPlaygroundApp({
+  PlaygroundApp({
     required this.appName,
     required this.tabs,
     super.key
@@ -23,7 +23,7 @@ class FanciPlaygroundApp extends StatelessWidget {
         ),
         darkTheme: ThemeData.dark(),
         themeMode: themeController.value,
-        home: FanciPlaygroundPage(
+        home: PlaygroundPage(
           appName: appName,
           tabs: tabs,
           themeModeController: themeController,
@@ -49,12 +49,12 @@ class ThemedBuilder extends StatelessWidget {
   );
 }
 
-class FanciPlaygroundPage extends StatefulWidget {
+class PlaygroundPage extends StatefulWidget {
   final String appName;
-  final List<FanciPlaygroundTab> tabs;
+  final List<PlaygroundTab> tabs;
   final ThemeModeController? themeModeController;
 
-  const FanciPlaygroundPage({
+  const PlaygroundPage({
     super.key,
     required this.appName,
     required this.tabs,
@@ -62,10 +62,10 @@ class FanciPlaygroundPage extends StatefulWidget {
   });
 
   @override
-  State<FanciPlaygroundPage> createState() => _FanciPlaygroundPageState();
+  State<PlaygroundPage> createState() => _PlaygroundPageState();
 }
 
-class _FanciPlaygroundPageState extends State<FanciPlaygroundPage> {
+class _PlaygroundPageState extends State<PlaygroundPage> {
   final ValueNotifier navigationBarIndex = ValueNotifier(0);
 
   @override
@@ -107,7 +107,7 @@ class _FanciPlaygroundPageState extends State<FanciPlaygroundPage> {
   }
 }
 
-class FanciPlaygroundTab {
+class PlaygroundTab {
   final String emoji;
   final String label;
   final Widget page;
@@ -117,7 +117,7 @@ class FanciPlaygroundTab {
     label: label,
   );
 
-  const FanciPlaygroundTab({
+  const PlaygroundTab({
     required this.emoji, 
     required this.label, 
     required this.page

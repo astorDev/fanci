@@ -13,10 +13,10 @@ class MyPlaygroundApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FanciPlaygroundApp(
+    return PlaygroundApp(
       appName: 'Expansion Tile',
       tabs: [
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🚥', 
           label: 'Problem', 
           page: ProblemCase()

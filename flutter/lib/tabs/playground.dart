@@ -9,20 +9,20 @@ void main() {
 class TabsPlaygroundApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FanciPlaygroundApp(
+    return PlaygroundApp(
       appName: 'Tabs',
       tabs: [
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '😎', 
           label: 'Main',
           page: Main()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🎨', 
           label: 'Built-In',
           page: BuiltInTabsPlayground()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '📏', 
           label: 'Measurements', 
           page: Measurements()

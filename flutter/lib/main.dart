@@ -15,20 +15,20 @@ class MyPlaygroundApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FanciPlaygroundApp(
+    return PlaygroundApp(
       appName: 'Fanci',
       tabs: [
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🏃', 
           label: 'Slide',
           page: SlidingShowcase()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '📊', 
           label: 'Tabs',
           page: TabsShowcases()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🍊', 
           label: 'Orange',
           page: Center(child: Text('Cage for Orange'))
