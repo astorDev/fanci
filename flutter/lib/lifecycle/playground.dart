@@ -8,10 +8,10 @@ void main() {
 class LifecyclePlaygroundApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FanciPlaygroundApp(
+    return PlaygroundApp(
       appName: 'Lifecycle', 
       tabs: const [
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🚀',
           label: 'Main',
           page: LifecycleMainCase()

@@ -16,20 +16,20 @@ class MyPlaygroundApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FanciPlaygroundApp(
+    return PlaygroundApp(
       appName: 'Animation',
       tabs: [
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🚥', 
           label: 'Tabs Indicator', 
           page: TabsIndicatorCaseVersioned()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🎨', 
           label: 'Custom Paint',
           page: CustomPaintCase()
         ),
-        FanciPlaygroundTab(
+        PlaygroundTab(
           emoji: '🏄🏻‍♂️', 
           label: 'Sliding Column',
           page: StandardSlidingCase()
