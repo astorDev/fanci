@@ -1,3 +1,4 @@
+import 'package:fanci/dropdown/effective_playground.dart';
 import 'package:fanci/dropdown/widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -15,13 +16,48 @@ class DropdownPlaygroundApp extends StatelessWidget {
       appName: 'Dropdown',
       tabs: [
         PlaygroundTab(
+          emoji: '🚦',
+          label: 'Effective',
+          page: EffectivePlayground(),
+        ),
+        PlaygroundTab(
           emoji: '🚥',
-          label: 'One',
+          label: 'Reference',
           page: FormPlayground(),
         ),
+        PlaygroundTab(
+          emoji: '🎨',
+          label: 'InkWell with Container', 
+          page: InkWellWithContainerPlayground()
+        )
       ],
     );
   }
+}
+
+class InkWellWithContainerPlayground extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => print('tapped'),
+      child: Ink(
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Container(
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            
+          ),
+          child: Text('Hello'),
+        ),
+      ),
+    );
+  }
+
 }
 
 class FormPlayground extends StatelessWidget {
@@ -29,16 +65,9 @@ class FormPlayground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Text Field',
-                ),
-              ),
-            ),
-            DropdownMenu(dropdownMenuEntries: [
+        PlaygroundRow(
+          child: DropdownMenu(
+            dropdownMenuEntries: [
               DropdownMenuEntry(
                 label: 'USD',
                 value: 'USD'
@@ -51,59 +80,227 @@ class FormPlayground extends StatelessWidget {
                 label: 'AED',
                 value: 'AED'
               ),
-            ])
-          ],
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+              DropdownMenuEntry(
+                label: 'AED',
+                value: 'AED'
+              ),
+            ]
+          )
         ),
-        Row(
-          children: [
-            Expanded(
-              child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Text Field',
-                ),
+        PlaygroundRow(
+          child: DropdownButton(
+            value: 'USD',
+            items: [
+              DropdownMenuItem(
+                value: 'USD',
+                child: Text('USD')
               ),
-            ),
-            TextSelector(
-              controller: TextSelectorController(
-                options: ['USD', 'EUR', 'GBP'],
-                selected: 'USD',
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
               ),
-              headBuilder: (selected, opened) => TextSelectorHead(
-                selected: selected,
-                opened: opened,
+              DropdownMenuItem(
+                value: 'AED',
+                child: Text('AED')
               ),
-              itemBuilder: (item) => TextSelectorItemView(item)
-            ),
-          ],
-        ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+              DropdownMenuItem(
+                value: 'EUR',
+                child: Text('EUR')
+              ),
+            ],
+            onChanged: (_) {}),
+        )
       ],
     );
   }
 }
 
-class TextSelectorHead extends StatelessWidget {
-  final String selected;
-  final bool opened;
+class PlaygroundRow extends StatelessWidget {
+  final Widget child;
 
-  const TextSelectorHead({
-    required this.selected,
-    required this.opened,
-  });
+  const PlaygroundRow({required this.child});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            width: 1,
+          ),
+        ),
+      ),
       child: Row(
         children: [
-          Text(selected),
-          SizedBox(width: 44),
-          Text(opened ? '▲' : '▼')
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Text Field',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          child
         ],
       ),
     );
   }
 }
+
+
 
 class TextSelectorItemView extends StatelessWidget {
   final String value;
@@ -112,17 +309,12 @@ class TextSelectorItemView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var backgroundColor = Theme.of(context).colorScheme.surfaceContainer;
-
-    return InkWell(
-      child: Container(
-        color: backgroundColor,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-        child: Text(value),
-      ),
+    return Text(
+      value, 
+      style: Theme.of(context).textTheme.titleMedium,
+      //textAlign: TextAlign.center
     );
   }
-  
 }
 
 class TextSelectorController extends ValueNotifier<String> {
@@ -155,29 +347,36 @@ class TextSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownBuilder(
-      buttonBuilder: (BuildContext context, Function() onTap, bool opened) {
+      headBuilder: (BuildContext context, Function() onTap, bool opened) {
         return ValueListenableBuilder(
           valueListenable: controller,
           builder: (context, value, child) => InkWell(
             onTap: onTap,
             child: headBuilder(value, opened),
-             //Text(value + (opened ? '▲' : '▼')),
           )
         );
       },
-      menuBuilder: (BuildContext context, Function() onItemTap) => Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          for (var option in controller.options)
-            InkWell(
-              onTap: () {
-                controller.select(option);
-                onItemTap();
-              },
-              child: itemBuilder(option)
-            ),
-        ],
+      bodyBuilder: (BuildContext context, Function() onItemTap) => Padding(
+        padding: const EdgeInsets.only(top: 1),
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: kElevationToShadow[3],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (var option in controller.options)
+                InkWell(
+                  onTap: () {
+                    controller.select(option);
+                    onItemTap();
+                  },
+                  child: itemBuilder(option)
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
