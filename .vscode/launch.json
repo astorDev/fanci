@@ -24,6 +24,12 @@
             "request" : "launch",
             "type" : "dart",
             "program" : "flutter/lib/dropdown/playground.dart"
+        },
+        {
+            "name" : "Overlay Playground",
+            "request" : "launch",
+            "type" : "dart",
+            "program" : "flutter/lib/overlay/playground.dart"
         }
     ]
 }
