@@ -125,7 +125,7 @@ class ShowFollowerButton extends StatelessWidget {
           var entry = OverlayEntry(builder: (context) => adjustFollower(follower));
 
           Overlay.of(context).insert(entry);
-          Future.delayed(Duration(seconds: 100), () => entry.remove());
+          Future.delayed(Duration(seconds: 1), () => entry.remove());
         }, 
         child: Text('Show $adjustmentLabel Follower'),
       )
