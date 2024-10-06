@@ -6,6 +6,8 @@
 
 ## Showing the Brick
 
+Well, an `Overlay` should display a child widget over the remaining of the UI, so let's first get ourselves something to display. We'll have a colorful container, with hard-coded size and shadow just for aesthetics. We'll call it Brick for brevity:
+
 ```dart
 class Brick extends StatelessWidget {
   @override
@@ -21,6 +23,8 @@ class Brick extends StatelessWidget {
   }
 }
 ```
+
+Now let's create a button that when pressed will build an `OverlayEntry` with a `Brick` and display it for one second:
 
 ```dart
 class ShowBrickButton extends StatelessWidget {
@@ -48,6 +52,8 @@ class ShowBrickButton extends StatelessWidget {
 }
 ```
 
+You may notice that instead of just creating a `Brick` in the `OverlayEntry` we pass it to the `adjustBrick` so that we can do some additional manipulations with it. For the beginning let's not do anything with the `Brick`:
+
 ```dart
 ShowBrickButton(
     adjustBrick: (brick) => brick,
@@ -55,9 +61,15 @@ ShowBrickButton(
 ),
 ```
 
+Let's see what we got:
+
 ![](brick-unadjusted.gif)
 
+Surprisingly, this ignores our `Brick` dimensions and expands this to the whole screen. Let's do something about it!
+
 ## Giving Constraints
+
+To prevent our brick from taking up the whole screen we will need to wrap it in some widget constraining its positioning. Probably the most popular widget to achieve this is the `Positioned` widget. To my surprise `Positioned` not just provide offsets, but also have `height` and `width` properties. Let's utilize them:
 
 ```dart
 ShowBrickButton(
@@ -66,7 +78,11 @@ ShowBrickButton(
 ),
 ```
 
+This will give us:
+
 ![](brick-positioned.gif)
+
+As you may see the solution still pretty much ignores the brick's own dimensions, but limits it to the sizes supplied via the `Positioned` widget. Gladly, there is a widget that will allow us to use the `width` and `height` we have for the Container.
 
 ```dart
 ShowBrickButton(
@@ -75,9 +91,15 @@ ShowBrickButton(
 ),
 ```
 
+With the use of the `Align` widget we'll have our correctly sized brick displayed in the middle of the screen:
+
 ![](brick-aligned.gif)
 
+So far so good, but for a real-world scenario we probably don't just need to show overlays in some arbitrary position on the screen, but rather show it relative to another widget. That's what we will do next!
+
 ## Following Widgets
+
+To bind two widgets positioning in Flutter we have `CompositedTransformTarget` and `CompositedTransformFollower` widgets. By using `LayerLink`, connected to `CompositedTransformTarget` `CompositedTransformFollower` can be drawn relative to it's target. Let's create a new widget, based on our previously defined`ShowBrickButton`. All we will essentially do is wrap `ElevatedButton` in `CompositedTransformTarget`, and `Brick` in `CompositedTransformFollower`. Here's the code we'll end up with:
 
 ```dart
 class ShowFollowerButton extends StatelessWidget {
@@ -114,6 +136,8 @@ class ShowFollowerButton extends StatelessWidget {
 }
 ```
 
+As before starting with the unadjusted button
+
 ```dart
 ShowFollowerButton(
   adjustmentLabel: 'Unadjusted',
@@ -121,9 +145,15 @@ ShowFollowerButton(
 ),
 ```
 
+we'll get:
+
 ![](follower-unadjusted.gif)
 
+Although now the brick doesn't occupy the whole screen it's still expanded beyond its dimensions. Gladly, we already know what to do with it.
+
 ## Adjusting the Follower
+
+Let's first check out how it will look, wrapped in a `Positioned` widget
 
 ```dart
 ShowFollowerButton(
@@ -132,7 +162,11 @@ ShowFollowerButton(
 ),
 ```
 
+Expectedly we'll get our brick below the button, stretched to the positioned dimensions:
+
 ![](follower-positioned.gif)
+
+Finally, let's use the `Align` widget, which helped us before:
 
 ```dart
 ShowFollowerButton(
@@ -141,7 +175,11 @@ ShowFollowerButton(
 ),
 ```
 
+And get us the following `Brick` with its real dimensions:
+
 ![](follower-aligned.gif)
+
+This looks good and gives us enough fundamentals of what `Overlay` is about. So, let's wrap it here!
 
 ## Wrapping Up!
 
