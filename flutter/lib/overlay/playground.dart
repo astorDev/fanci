@@ -134,10 +134,6 @@ class ShowFollowerButton extends StatelessWidget {
 }
 
 class Brick extends StatelessWidget {
-  const Brick({
-    super.key,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Container(
