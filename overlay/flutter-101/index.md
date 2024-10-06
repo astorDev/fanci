@@ -1,4 +1,8 @@
-# Flutter Overlay: Getting Started (+ CompositedTransformFollower)
+# Flutter Overlay: Getting Started + CompositedTransformFollower
+
+`Overlay` is a pretty fundamental Flutter widgets, used internally in many other popular widgets like `DropdownMenu`. Yet there's very little information about it in the internet. This article will show you how to use the widget, plus provide you insights on how to make the widget even more useful with widgets that get, undeservedly, even less attention: `CompositedTransformFollower` and `CompositedTransformTarget`. Let's jump to the code!
+
+![](thumb.png)
 
 ## Showing the Brick
 
@@ -140,6 +144,10 @@ ShowFollowerButton(
 ![](follower-aligned.gif)
 
 ## Wrapping Up!
+
+I hope that article brings `Overlay` to your arsenal to build some exciting UIs in Flutter. Combination of `CompositedTransformTarget`, `CompositedTransformFollower`, and `Align` should be enough to build a real-life application widgets, such as dropdowns or hints. And if this article was helpful .. I would appreciate some claps! 😉
+
+You can play around with the code from this article, cloning [this repository](https://github.com/astorDev/fanci). And here's a gif, showing everything we've built through out this article:
 
 ![](overview.gif)
 
