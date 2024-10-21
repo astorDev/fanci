@@ -26,6 +26,12 @@
             "program" : "flutter/lib/dropdown/playground.dart"
         },
         {
+            "name" : "Dropmenu",
+            "request" : "launch",
+            "type" : "dart",
+            "program" : "flutter/lib/dropmenu/playground.dart"
+        },
+        {
             "name" : "Overlay Playground",
             "request" : "launch",
             "type" : "dart",
