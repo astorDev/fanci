@@ -2,7 +2,11 @@
 
 Flutter 3.10 introduced a new dropdown widget: DropdownMenu. This widget is way more verstatile then the previously used DropdownButton and Flutter docs recommend to use it over the old widget. Yet there's not much information available on the widget. In this article we'll play around with the widget, investigating its various aspects and functionalities. Let's jump to the code!
 
-## 
+## Preparing the Basics
+
+## Spicing the Looks
+
+## Search on Steroids
 
 ## Recap
 
