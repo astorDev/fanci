@@ -31,14 +31,7 @@ class DropdownPlaygroundApp extends StatelessWidget {
   }
 }
 
-class BasicPlayground extends StatefulWidget {
-  @override
-  State<BasicPlayground> createState() => _BasicPlaygroundState();
-}
-
-class _BasicPlaygroundState extends State<BasicPlayground> {
-  final TextEditingController _controller = TextEditingController();
-
+class BasicPlayground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,20 +39,14 @@ class _BasicPlaygroundState extends State<BasicPlayground> {
       children: [
         DropdownMenu(
           initialSelection: currencies[0],
-          dropdownMenuEntries: currencies.map(toDropdownMenuEntry).toList(),
+          dropdownMenuEntries: [
+            for (var currency in currencies)
+              DropdownMenuEntry(
+                label: currency.code,
+                value: currency
+              )
+          ]
         ),
-        SizedBox(height: 50),
-        DropdownMenu(
-          controller: _controller,
-          initialSelection: currencies[0],
-          dropdownMenuEntries: currencies.map(toDropdownMenuEntry).toList()
-        ),
-        ValueListenableBuilder(
-          valueListenable: _controller, 
-          builder: (context, value, child) {
-            return Text('Picker: ${value.text}');
-          }
-        )
       ],
     );
   }
@@ -73,16 +60,16 @@ class StyledPlayground extends StatelessWidget {
       children: [
         DropdownMenu(
           initialSelection: currencies[0],
-          dropdownMenuEntries: currencies.map(toDropdownMenuEntry).toList(),
-          inputDecorationTheme: InputDecorationTheme()
-        ),
-        SizedBox(height: 50),
-        DropdownMenu(
-          initialSelection: currencies[0],
           menuHeight: 200,
-          dropdownMenuEntries: currencies.map(toDropdownMenuEntry).toList(),
+          dropdownMenuEntries: [
+            for (var currency in currencies)
+              DropdownMenuEntry(
+                label: currency.code,
+                value: currency
+              )
+          ],
           trailingIcon: Icon(
-            Icons.keyboard_arrow_down_rounded,
+            Icons.keyboard_arrow_down_sharp,
             size: 20,
           ),
           selectedTrailingIcon: Icon(
@@ -117,65 +104,81 @@ class AdvancedPlayground extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        DropdownMenu(
-          initialSelection: currencies[0],
-          menuHeight: 200,
-          dropdownMenuEntries: currencies.map(toDropdownMenuEntry).toList(),
-          trailingIcon: Icon(
-            Icons.keyboard_arrow_down_rounded,
-            size: 20,
-          ),
-          selectedTrailingIcon: Icon(
-            Icons.keyboard_arrow_up_sharp,
-            size: 20
-          ),
-          inputDecorationTheme: InputDecorationTheme(
-            filled: true,
-            fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.03),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
-                width: 0.6
-              ),
+        SizedBox(
+          width: 130,
+          child: DropdownMenu(
+            initialSelection: currencies[0],
+            menuHeight: 200,
+            dropdownMenuEntries: [
+              for (var currency in currencies)
+                DropdownMenuEntry(
+                  label: currency.code,
+                  labelWidget: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(currency.code),
+                      Text(
+                        currency.name, 
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600])
+                      )
+                    ],
+                  ),
+                  value: currency
+                )
+            ],
+            searchCallback: (List<DropdownMenuEntry<Currency?>> entries, String query) {
+              return entries.indexWhere((e) => e.value!.contains(query));
+            },
+            trailingIcon: Icon(
+              Icons.keyboard_arrow_down_rounded,
+              size: 20,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary.withOpacity(1),
-                width: 0.6
+            selectedTrailingIcon: Icon(
+              Icons.keyboard_arrow_up_sharp,
+              size: 20
+            ),
+            inputDecorationTheme: InputDecorationTheme(
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.03),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1),
+                  width: 0.6
+                ),
               ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).colorScheme.primary.withOpacity(1),
+                  width: 0.6
+                ),
+              )
             )
-          )
-        ),
+          ),
+        )
       ],
     );
   }
 }
 
-DropdownMenuEntry toDropdownMenuEntry(Currency currency) {
-  return DropdownMenuEntry(
-    label: currency.symbol,
-    value: currency
-  );
-}
-
-DropdownMenuEntry currency = DropdownMenuEntry(
-  label: 'USD',
-  value: Currency(symbol: 'USD')
-);
-
 class Currency {
-  final String symbol;
+  final String code;
+  final String name;
 
   Currency({
-    required this.symbol
+    required this.code,
+    required this.name
   });
+
+  bool contains(String search) {
+    return code.toLowerCase().contains(search.toLowerCase()) 
+      || name.toLowerCase().contains(search.toLowerCase());
+  }
 }
 
 List<Currency> currencies = [
-  Currency(symbol: 'USD'),
-  Currency(symbol: 'EUR'),
-  Currency(symbol: 'AED'),
-  Currency(symbol: 'BTC'),
-  Currency(symbol: 'SOL'),
-  Currency(symbol: 'XNO'),
+  Currency(code: 'USD', name: 'United States Dollar'),
+  Currency(code: 'EUR', name: 'Euro'),
+  Currency(code: 'AED', name: 'United Arab Emirates Dirham'),
+  Currency(code: 'BTC', name: 'Bitcoin'),
+  Currency(code: 'SOL', name: 'Solana'),
 ];
