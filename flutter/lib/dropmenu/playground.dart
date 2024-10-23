@@ -60,7 +60,6 @@ class StyledPlayground extends StatelessWidget {
       children: [
         DropdownMenu(
           initialSelection: currencies[0],
-          menuHeight: 200,
           dropdownMenuEntries: [
             for (var currency in currencies)
               DropdownMenuEntry(
@@ -68,6 +67,7 @@ class StyledPlayground extends StatelessWidget {
                 value: currency
               )
           ],
+          menuHeight: 200,
           trailingIcon: Icon(
             Icons.keyboard_arrow_down_sharp,
             size: 20,
