@@ -41,21 +41,21 @@ DropdownMenu(
 )
 ```
 
-Gladly, the widget is a "battery-included" type of widget, so just the small code give us nice-looking widget with built-in search:
+Gladly, the widget is a "battery-included" type of widget, so just the small code gives us nice-looking widget with built-in search:
 
 ![](basic.gif)
 
-One of the important aspects of investigating a widget is seeing how we can customize its look, shell we?
+One of the important aspects of investigating a widget is seeing how we can customize its look, shall we?
 
 ## Spicing the Looks
 
-By default a `DropdownMenu` expands so that all of it's elements are visible. This is not very appropriate for a long list, which a currency list in a real application will be. Gladly, limiting the widget size is just a metter of a single property, so let's use it:
+By default, a `DropdownMenu` expands so that all of it's elements are visible. This is not very appropriate for a long list, which a currency list in a real application will be. Gladly, limiting the widget size is just a matter of a single property, so let's use it:
 
 ```dart
 menuHeight: 200,
 ```
 
-Next let's walk towards a more minimalistic look for our widget. To my taste, the default arrow icons are slightly obese. To change it we would have to adjust both down icon or `trailingIcon` property and the up icon `selectedTrailingIcon`. Here's how the updated version might look:
+Next, let's walk towards a more minimalistic look for our widget. To my taste, the default arrow icons are slightly obese. To change it we would have to adjust both the down icon (`trailingIcon` property) and the up icon (`selectedTrailingIcon`). Here's how the updated version might look:
 
 ```dart
 trailingIcon: Icon(
@@ -68,7 +68,7 @@ selectedTrailingIcon: Icon(
 ),
 ```
 
-One other thing we can do to create a more minimalistic look is to make our borders tinier. Note that to properly change the border we should update both `enabledBorder` and `focusedBorder` instead of a shared `border` property as it ignores `width` and `color` setups. To still recognize a dropdown with such tiny border we'll need to set a fill for our widget. Here's the code, combined:
+One other thing we can do to create a more minimalistic look is to make our borders tinier. Note that to properly change the border we should update both `enabledBorder` and `focusedBorder` instead of a shared `border` property as it ignores `width` and `color` setups. To still recognize a dropdown with such a tiny border we'll need to set a fill for our widget. Here's the code, combined:
 
 ```dart
 inputDecorationTheme: InputDecorationTheme(
@@ -89,7 +89,7 @@ inputDecorationTheme: InputDecorationTheme(
 )
 ```
 
-With those customization we'll get a widget that looks just a little lighter in my opinion:
+With those customizations, we'll get a widget that looks just a little lighter in my opinion:
 
 ![](styled.gif)
 
@@ -97,7 +97,7 @@ Changing widget looks is fun, but a deep understanding of a widget implies we ca
 
 ## Search on Steroids
 
-To do a behaviour customization we first need to have a more complex model. Let's add a name to our currrencies:
+To do a behaviour customization we first need to have a more complex model. Let's add a name to our currencies:
 
 ```dart
 class Currency {
