@@ -1,0 +1,5 @@
+services:
+  webapp:
+    build: .
+    ports: 
+      - "5580:80"
