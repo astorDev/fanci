@@ -13,6 +13,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlaygroundApp(
       appName: 'Dropdown',
+      theme: ThemeData(
+        extensions: [
+          DropdownIconsTheme(
+            trailingIcon: Icon(
+              Icons.keyboard_arrow_down,
+              size: 18,
+            ),
+            selectedTrailingIcon: Icon(
+              Icons.keyboard_arrow_up,
+              size: 18,
+            ),
+          )
+        ]
+      ),
       tabs: [
         PlaygroundTab(
           title: 'Main',
