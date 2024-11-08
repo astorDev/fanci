@@ -41,14 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.19.0"
-  crypto:
-    dependency: transitive
-    description:
-      name: crypto
-      sha256: ec30d999af904f33454ba22ed9a86162b35e52b44ac4807d1d93c288041d7d27
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.5"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -65,14 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
-  fixnum:
-    dependency: transitive
+  fanci_playground:
+    dependency: "direct main"
     description:
-      name: fixnum
-      sha256: "25517a4deb0c03aa0f32fd12db525856438902d9c16536311e76cdc57b31d7d1"
+      name: fanci_playground
+      sha256: "4ad094a2d849f8bf0502cf128e06c65f823eb506ce43c2f3d3a1693733ac60ba"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.0.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -82,10 +74,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_lints
-      sha256: "9e8c3858111da373efc5aa341de011d9bd23e2c5c5e0c62bccf32438e192d7b1"
+      sha256: "5398f14efa795ffb7a33e9b6a08798b26a180edac4ad7db3f231e40f82ce11e1"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.2"
+    version: "5.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -119,10 +111,10 @@ packages:
     dependency: transitive
     description:
       name: lints
-      sha256: cbf8d4b858bb0134ef3ef87841abdf8d63bfc255c266b7bf6b39daa1085c4290
+      sha256: "4a16b3f03741e1252fda5de3ce712666d010ba2122f8e912c94f9f7b90e1a4c3"
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.0"
+    version: "5.1.0"
   matcher:
     dependency: transitive
     description:
@@ -168,14 +160,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -216,22 +200,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.3"
-  typed_data:
-    dependency: transitive
-    description:
-      name: typed_data
-      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.2"
-  uuid:
-    dependency: "direct main"
-    description:
-      name: uuid
-      sha256: f33d6bb662f0e4f79dcd7ada2e6170f3b3a2530c28fc41f49a411ddedd576a77
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.5.0"
   vector_math:
     dependency: transitive
     description:
@@ -249,5 +217,5 @@ packages:
     source: hosted
     version: "14.3.0"
 sdks:
-  dart: ">=3.4.4 <4.0.0"
+  dart: ">=3.6.0-334.3.beta <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"
