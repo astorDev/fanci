@@ -1,3 +1,4 @@
+import 'package:fanci_dropdown/dropdown.dart';
 import 'package:fanci_playground/playground.dart';
 import 'package:flutter/material.dart';
 
@@ -11,12 +12,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PlaygroundApp(
-      appName: 'Dropdown', 
+      appName: 'Dropdown',
+      theme: ThemeData(
+        extensions: [
+          DropdownIconsTheme(
+            trailingIcon: Icon(
+              Icons.keyboard_arrow_down,
+              size: 18,
+            ),
+            selectedTrailingIcon: Icon(
+              Icons.keyboard_arrow_up,
+              size: 18,
+            ),
+          )
+        ]
+      ),
       tabs: [
         PlaygroundTab(
           title: 'Main',
           emoji: '🏠',
-          child: Text('Dropdown Home')
+          child: Dropdown(
+            initialSelection: 'item1',
+            dropdownMenuEntries: [
+              DropdownMenuEntry(label: 'Item 1', value: 'item1'),
+              DropdownMenuEntry(label: 'Item 2', value: 'item2'),
+              DropdownMenuEntry(label: 'Item 3', value: 'item3'),
+            ],
+          )
         )
       ]
     );
