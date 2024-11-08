@@ -1,13 +1,20 @@
+import 'package:fanci_dropdown/dropdown.dart';
 import 'package:flutter/material.dart';
-import 'package:minth/dropdown.dart';
+import 'package:flutter/services.dart';
 
 extension ThemeDataMinth on ThemeData {
   ThemeData copyWithMinthAdjustments() {
     return copyWith(
       extensions: [
         DropdownIconsTheme(
-          trailingIcon: Icon(Icons.keyboard_arrow_down_sharp),
-          selectedTrailingIcon: Icon(Icons.keyboard_arrow_up_sharp),
+          trailingIcon: Icon(
+            Icons.keyboard_arrow_down_sharp,
+            size: 20,
+          ),
+          selectedTrailingIcon: Icon(
+            Icons.keyboard_arrow_up_sharp,
+            size: 20,
+          ),
         )
       ],
       textSelectionTheme: TextSelectionThemeData(
@@ -18,7 +25,6 @@ extension ThemeDataMinth on ThemeData {
           maximumSize: WidgetStatePropertyAll(Size.fromHeight(120))
         ),
         inputDecorationTheme: InputDecorationTheme(
-          
           filled: true,
           fillColor: colorScheme.onSurface.withOpacity(0.03),
           enabledBorder: OutlineInputBorder(
@@ -36,6 +42,34 @@ extension ThemeDataMinth on ThemeData {
             ),
           )
         )
+      )
+    );
+  }
+}
+
+extension ThemeDataLightMinth on ThemeData {
+  ThemeData copyWithWhiteColoring() {
+    return copyWith(
+      colorScheme: ColorScheme(
+        brightness: Brightness.light,
+        surface: Colors.white,
+        onSurface: Colors.black,
+        primary: Colors.orange,
+        onPrimary: Colors.green,
+        secondary: Colors.purple,
+        onSecondary: Colors.blue,
+        error: Colors.pink,
+        onError: Colors.yellow,
+        surfaceBright: Colors.yellow,
+      ),
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+        ),
       )
     );
   }
