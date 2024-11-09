@@ -1,7 +1,7 @@
 name: fanci_dropdown
 description: "Fanci dropdown widget."
 repository: https://github.com/astorDev/fanci/main/tree/dropdown/flutter
-version: 1.0.0
+version: 1.1.0
 
 environment:
   sdk: ^3.6.0-334.3.beta
