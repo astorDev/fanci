@@ -1,4 +1,4 @@
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -187,7 +187,7 @@ class Dropdown<T> extends StatelessWidget {
   /// Controls the text being edited or selected in the menu.
   ///
   /// If null, this widget will create its own [TextEditingController].
-  final TextEditingController? controller;
+  final DropdownTextController? controller;
 
   /// The value used to for an initial selection.
   ///
@@ -384,7 +384,7 @@ class Dropdown<T> extends StatelessWidget {
       textAlign : this.textAlign,
       inputDecorationTheme : this.inputDecorationTheme,
       menuStyle : this.menuStyle,
-      controller : this.controller,
+      controller : this.controller?.innerController,
       initialSelection : this.initialSelection,
       onSelected : this.onSelected,
       focusNode : this.focusNode,
@@ -426,4 +426,21 @@ class DropdownIconsTheme extends ThemeExtension<DropdownIconsTheme> {
   ThemeExtension<DropdownIconsTheme> lerp(covariant ThemeExtension<DropdownIconsTheme>? other, double t) {
     return this;
   }
+}
+
+class DropdownTextController extends ChangeNotifier implements ValueListenable<String> {
+  TextEditingController innerController;
+  String text;
+
+  DropdownTextController({this.text = ''}) : innerController = TextEditingController(text: text) {
+    innerController.addListener(() {
+      if (innerController.text != text) {
+        text = innerController.text;
+        notifyListeners();
+      }
+    });
+  }
+  
+  @override
+  String get value => text;
 }
