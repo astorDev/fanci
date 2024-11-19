@@ -3,7 +3,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 extension ThemeDataMinth on ThemeData {
+  InputDecorationTheme get _inputDecorationTheme => InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(
+        color: colorScheme.onSurface.withOpacity(0.2),
+        width: 0.3
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(
+        color: colorScheme.onSurface.withOpacity(0.3),
+        width: 0.6
+      ),
+    ),
+    hintStyle: TextStyle(
+      color: colorScheme.onSurface.withOpacity(0.3),
+    )
+  );
+
   ThemeData copyWithMinthAdjustments() {
+    var inputDecorationTheme = _inputDecorationTheme;
+
     return copyWith(
       extensions: [
         DropdownIconsTheme(
@@ -20,27 +42,14 @@ extension ThemeDataMinth on ThemeData {
       textSelectionTheme: TextSelectionThemeData(
         cursorColor: colorScheme.onSurface,
       ),
+      inputDecorationTheme: inputDecorationTheme,
       dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
           maximumSize: WidgetStatePropertyAll(Size.fromHeight(120))
         ),
-        inputDecorationTheme: InputDecorationTheme(
+        inputDecorationTheme: inputDecorationTheme.copyWith(
           filled: true,
           fillColor: colorScheme.onSurface.withOpacity(0.03),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: colorScheme.onSurface.withOpacity(0.1),
-              width: 0.3
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              color: colorScheme.onSurface.withOpacity(0.2),
-              width: 0.6
-            ),
-          )
         )
       )
     );
