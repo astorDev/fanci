@@ -1,2 +1,6 @@
 .DS_Store
 inbox.md
+
+node_modules/
+*.log*
+dist/

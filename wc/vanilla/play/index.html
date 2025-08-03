@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vite Vanilla JS App</title>
+    <script type="module" src="/a-card.js"></script>
+    <link rel="stylesheet" href="/card.css" />
+    <link rel="stylesheet" href="/nice.css" />
+    <!-- <link rel="stylesheet" href="/a-card.css" /> -->
+  </head>
+  <body>
+    <h2>Card Component Playground!</h2>
+    <h3>This is an example of card web component:</h3>
+    <aside>Uncomment a-card.css to override some styling</aside>
+    <a-card>
+        <h1>Card Component Title <code>(card > h1)</code></h1>
+        <p>This is a card component description.<code>(card > p)</code></p>
+    </a-card>
+    <h3>This is an example of simply using <code>card</code> tag styling from <code>card.css</code></h3>
+    <card class="variant-2">
+        <h1>Card Component Title <code>(card > h1)</code></h1>
+        <p>This is a card component description.<code>(card > p)</code></p>
+    </card>
+  </body>
+</html>
