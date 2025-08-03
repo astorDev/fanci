@@ -1,0 +1,19 @@
+a-card {
+    display: block;
+    border: 1px solid rgba(255,0,0,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px 0 rgba(255,0,0,0.08);
+}
+
+a-card.var-2 {
+    border: 1px solid rgba(255,0,0,0.1);
+}
+
+a-card > h1 {
+    color: orange;
+}
+
+a-card > p {
+    color: orange;
+}
