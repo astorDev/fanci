@@ -8,12 +8,8 @@ function actionStub(): Promise<void> {
   return new Promise<void>((resolve, reject) => {
     setTimeout(() => {
       var shouldFail = Math.random() < 0.3;
-      if (shouldFail) {
-        reject(new Error("Action failed"));
-      }
-      else {
-        resolve();
-      }
+      if (shouldFail) reject(new Error("Action failed"));
+      else resolve();
     }, 1000);
   });
 }
@@ -23,15 +19,9 @@ export default function Home() {
   const [ inputValue, setInputValue ] = useState("");
 
   useEffect(() => {
-    if (inputValue.trim() === "") {
-      setUnreadyReason("Nothing in the input");
-    } 
-    else if (inputValue.trim().toLowerCase() === "ready") {
-      setUnreadyReason("");
-    }
-    else {
-      setUnreadyReason("Input is not `Ready`");
-    }
+    if (inputValue.trim() === "") setUnreadyReason("Nothing in the input");
+    else if (inputValue.trim().toLowerCase() === "ready") setUnreadyReason("");
+    else setUnreadyReason("Input is not `Ready`");
   }, [inputValue]);
 
   return (
