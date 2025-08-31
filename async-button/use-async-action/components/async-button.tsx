@@ -1,9 +1,9 @@
 import { Button } from "./ui/button";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
-import { useAsyncAction } from "./useAsyncAction";
+import { useAsyncAction } from "../hooks/useAsyncAction";
 
-export default function AsyncButton({ 
+export default function AsyncButton<T>({ 
   action, 
   className,
   submitText = "Save",
@@ -16,22 +16,25 @@ export default function AsyncButton({
   ready = true,
   unreadyText = "Save",
 }: { 
-  action: () => Promise<void>, 
+  action: () => Promise<T>, 
   className?: string,
   submitText?: string,
   loadingText?: string,
   tryAgainText?: string,
-  successMessage?: string,
-  successDescription?: string | null,
+  successMessage?: string | ((result: T) => string),
+  successDescription?: string | null | ((result: T) => string | null),
   errorMessage?: string,
   errorDescription?: string
   ready?: boolean,
   unreadyText?: string
 }) {
   const { run, loading, error } = useAsyncAction(action, {
-    onSuccess: () => {
-      toast.success(successMessage, {
-        description: successDescription,
+    onSuccess: (result) => {
+      const successMessageText = typeof successMessage === 'function' ? successMessage(result) : successMessage;
+      const successDescriptionText = typeof successDescription === 'function' ? successDescription(result) : successDescription;
+
+      toast.success(successMessageText, {
+        description: successDescriptionText,
       });
     },
     onError: () => {
