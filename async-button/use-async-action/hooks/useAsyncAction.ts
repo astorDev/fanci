@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-export function useAsyncAction(
-  action: () => Promise<void>, { 
+export function useAsyncAction<T>(
+  action: () => Promise<T>, { 
     onSuccess, 
     onError 
 }: { 
-    onSuccess?: () => void; 
-    onError?: (error: Error) => void; } = {}
+    onSuccess?: (result: T) => void; 
+    onError?: (error: Error) => void; 
+  } = {
+  }
 ) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -18,16 +20,12 @@ export function useAsyncAction(
     setSuccess(false);
 
     try {
-      await action();
+      const result = await action();
       setSuccess(true);
-      if (onSuccess) {
-        onSuccess();
-      }
+      onSuccess?.(result);
     } catch (error) {
       setError(error as Error);
-      if (onError) {
-        onError(error as Error);
-      }
+      onError?.(error as Error);
     } finally {
       setLoading(false);
     }

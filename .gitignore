@@ -1,6 +1,7 @@
 .DS_Store
-inbox.md
+inbox.*
 
 node_modules/
 *.log*
 dist/
+/play/
