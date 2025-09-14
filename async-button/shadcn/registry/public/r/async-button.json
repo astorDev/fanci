@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "async-button",
+  "type": "registry:component",
+  "description": "A button component that supports async actions",
+  "dependencies": [
+    "sonner",
+    "use-async-action"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/async-button.tsx",
+      "content": "import { Button } from \"../components/ui/button\";\nimport { Loader2Icon } from \"lucide-react\";\nimport { toast } from \"sonner\";\nimport { useAsyncAction } from \"use-async-action\";\n\nexport default function AsyncButton<T>({ \n  action, \n  className,\n  submitText = \"Save\",\n  loadingText = \"Saving...\",\n  tryAgainText = \"Try Again\",\n  successMessage = \"Saved!\",\n  successDescription = null,\n  errorMessage = \"Failed\",\n  errorDescription = \"An error occurred.\",\n  ready = true,\n  unreadyText = \"Save\",\n}: { \n  action: () => Promise<T>, \n  className?: string,\n  submitText?: string,\n  loadingText?: string,\n  tryAgainText?: string,\n  successMessage?: string | ((result: T) => string),\n  successDescription?: string | null | ((result: T) => string | null),\n  errorMessage?: string,\n  errorDescription?: string\n  ready?: boolean,\n  unreadyText?: string\n}) {\n  const { run, loading, error } = useAsyncAction(action, {\n    onSuccess: (result) => {\n      const successMessageText = typeof successMessage === 'function' ? successMessage(result) : successMessage;\n      const successDescriptionText = typeof successDescription === 'function' ? successDescription(result) : successDescription;\n\n      toast.success(successMessageText, {\n        description: successDescriptionText,\n      });\n    },\n    onError: () => {\n      toast.error(errorMessage, {\n        description: errorDescription,\n      });\n    }\n  });\n\n  return (\n    <Button\n      onClick={run}\n      disabled={loading || !ready}\n      className={className}\n    >\n      {\n        !ready ? unreadyText\n        : loading ? (<><Loader2Icon className=\"animate-spin\" />{loadingText}</>)\n        : error ? tryAgainText \n        : submitText\n      }\n    </Button>\n  );\n}",
+      "type": "registry:component"
+    }
+  ]
+}

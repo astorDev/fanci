@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "acme",
+  "homepage": "https://acme.com",
+  "items": [
+    {
+      "name": "async-button",
+      "type" : "registry:component",
+      "description": "A button component that supports async actions",
+      "files" : [
+        {
+            "path" : "registry/async-button.tsx",
+            "type": "registry:component"
+        }
+      ],
+      "registryDependencies": [
+        "button"
+      ],
+      "dependencies": [
+        "sonner",
+        "use-async-action"
+      ]
+    }
+  ]
+}
