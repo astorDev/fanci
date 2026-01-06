@@ -28,7 +28,7 @@
         {
             "name" : "Dropmenu",
             "request" : "launch",
-            "type" : "dart",
+            "type" : "dart", 
             "program" : "flutter/lib/dropmenu/playground.dart"
         },
         {
@@ -36,6 +36,24 @@
             "request" : "launch",
             "type" : "dart",
             "program" : "flutter/lib/overlay/playground.dart"
-        }
+        },
+                {
+                    "name": ".NET MAUI MacCatalyst Launch",
+                    "type": "coreclr",
+                    "request": "launch",
+                    "preLaunchTask": "build",
+                    "program": "${workspaceFolder}/dotnet/maui-blazor/bin/Debug/net10.0-maccatalyst/maccatalyst-arm64/Fanci.Playground.MauiBlazor.app/Contents/MacOS/Fanci.Playground.MauiBlazor",
+                    "args": [],
+                    "cwd": "${workspaceFolder}",
+                    "stopAtEntry": true,
+                    "console": "internalConsole"
+                },
+                {
+                    "name": "Attach to .NET MAUI MacCatalyst",
+                    "type": "coreclr",
+                    "request": "attach",
+                    "processId": "${command:pickProcess}",
+                    "justMyCode": false
+                }
     ]
 }

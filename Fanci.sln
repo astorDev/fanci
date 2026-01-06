@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dotnet", "dotnet", "{A96954FF-A6E5-45F5-81A8-0F1E3CCA29FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "maui-blazor", "maui-blazor", "{0823BB81-1745-94B0-8D65-F6D93141A5AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanci.Playground.MauiBlazor", "dotnet\maui-blazor\Fanci.Playground.MauiBlazor.csproj", "{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|x64.Build.0 = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Debug|x86.Build.0 = Debug|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|x64.ActiveCfg = Release|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|x64.Build.0 = Release|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0823BB81-1745-94B0-8D65-F6D93141A5AB} = {A96954FF-A6E5-45F5-81A8-0F1E3CCA29FB}
+		{E7F6D8EC-8CB2-4F63-9DBF-8171C0322C24} = {0823BB81-1745-94B0-8D65-F6D93141A5AB}
+	EndGlobalSection
+EndGlobal
