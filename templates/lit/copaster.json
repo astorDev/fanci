@@ -1,0 +1,10 @@
+{
+    "skip" : [
+        "node_modules/",
+        "copaster.json",
+        "package-lock.json"
+    ],
+    "replace" : [
+        "my-element:allCases"
+    ]
+}
