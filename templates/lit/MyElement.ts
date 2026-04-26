@@ -8,7 +8,7 @@ export class MyElement extends LitElement {
   }`;
 
   render() {
-    return html`<p>Hello from Lit!</p>`;
+    return html`<p>Hello from MyElement!</p>`;
   }
 }
 
