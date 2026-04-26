@@ -1,4 +1,4 @@
 FEAT ?= monaco-editor
 
 lit:
-	dotnet run --project templates/copaster/here/play -- here --from=../../../lit --to=../../../../$(FEAT)/lit
+	make -C templates/lit -f copaster.Makefile DESTINATION=../../$(FEAT)/lit ELEMENT=fanci-$(FEAT)
